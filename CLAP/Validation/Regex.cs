@@ -7,7 +7,6 @@ namespace CLAP.Validation
     /// Regex validation:
     /// The string value of the marked parameter or property must match the specified regular expression
     /// </summary>
-    [Serializable]
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property)]
     public sealed class RegexMatchesAttribute : ValidationAttribute
     {

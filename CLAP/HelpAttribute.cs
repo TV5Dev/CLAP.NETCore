@@ -5,7 +5,6 @@ namespace CLAP
     /// <summary>
     /// Marks a method to be called when the user asks for help
     /// </summary>
-    [Serializable]
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public sealed class HelpAttribute : Attribute
     {

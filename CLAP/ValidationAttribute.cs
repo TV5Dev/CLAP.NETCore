@@ -5,7 +5,6 @@ namespace CLAP
     /// <summary>
     /// Validation on the parameter's value
     /// </summary>
-    [Serializable]
     public abstract class ValidationAttribute : Attribute
     {
         /// <summary>

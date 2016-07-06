@@ -87,6 +87,7 @@
     <Compile Include="HelpGeneratorBase.cs" />
     <Compile Include="HelpInfo.cs" />
     <Compile Include="Interception\UserVerbExecutionContext.cs" />
+    <Compile Include="NetCoreHelper.cs" />
     <Compile Include="Pair.cs" />
     <Compile Include="Parser.WinForms.cs" />
     <Compile Include="EnvironmentParserHandlers.cs" />

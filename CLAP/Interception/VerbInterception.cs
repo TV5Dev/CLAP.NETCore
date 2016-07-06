@@ -6,7 +6,6 @@ namespace CLAP.Interception
     /// Marks a class to allow verb-interception by a defined IVerbInterceptor
     /// (or either IPreVerbInterceptor or IPostVerbInterceptor) type
     /// </summary>
-    [Serializable]
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public sealed class VerbInterception : Attribute
     {

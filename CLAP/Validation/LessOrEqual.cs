@@ -6,7 +6,6 @@ namespace CLAP.Validation
     /// Less-Or-Equal-To validation:
     /// The numeric value of the marked parameter or property must be a less or equal to the specified number
     /// </summary>
-    [Serializable]
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property)]
     public sealed class LessOrEqualToAttribute : NumberValidationAttribute
     {

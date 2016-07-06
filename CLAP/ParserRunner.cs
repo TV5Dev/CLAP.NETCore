@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using System.Runtime.Serialization;
 using CLAP.Interception;
-
 #if !FW2
 using System.Linq;
 #endif
@@ -318,6 +316,9 @@ namespace CLAP
 
         static void PreserveStackTrace(Exception e)
         {
+#if NETCORE
+            // TODO
+#else
             var ctx = new StreamingContext(StreamingContextStates.CrossAppDomain);
             var mgr = new ObjectManager(null, ctx);
             var si = new SerializationInfo(e.GetType(), new FormatterConverter());
@@ -325,7 +326,7 @@ namespace CLAP
             e.GetObjectData(si, ctx);
             mgr.RegisterObject(e, 1, si); // prepare for SetObjectData
             mgr.DoFixups(); // ObjectManager calls SetObjectData
-
+#endif
             // voila, e is unmodified save for _remoteStackTraceString
         }
 
@@ -538,7 +539,7 @@ namespace CLAP
             //
             var hasInvalidDefaultProvider = parameters.Where(p =>
                 p.HasAttribute<DefaultProviderAttribute>() &&
-                !typeof(DefaultProvider).IsAssignableFrom(p.GetAttribute<DefaultProviderAttribute>().DefaultProviderType));
+                !typeof(DefaultProvider).GetTypeInfo().IsAssignableFrom(p.GetAttribute<DefaultProviderAttribute>().DefaultProviderType));
 
             if (hasInvalidDefaultProvider.Any())
             {
@@ -694,7 +695,7 @@ namespace CLAP
             //
             var allNames = parameters.SelectMany(p => p.Names);
             var duplicates = allNames.Where(name =>
-                allNames.Count(n => n.Equals(name, StringComparison.InvariantCultureIgnoreCase)) > 1);
+                allNames.Count(n => n.Equals(name, StringComparison.CurrentCultureIgnoreCase)) > 1);
 
             if (duplicates.Any())
             {
@@ -827,7 +828,7 @@ namespace CLAP
 
                 var key = args.Keys.FirstOrDefault(
                     k => allNames.Any(
-                        n => n.Equals(k, StringComparison.InvariantCultureIgnoreCase)));
+                        n => n.Equals(k, StringComparison.CurrentCultureIgnoreCase)));
 
                 if (key != null)
                 {
@@ -914,8 +915,8 @@ namespace CLAP
 
                 var name = att.Name ?? method.Name;
 
-                if (name.Equals(arg, StringComparison.InvariantCultureIgnoreCase) ||
-                    att.Aliases.CommaSplit().Any(s => s.Equals(arg, StringComparison.InvariantCultureIgnoreCase)))
+                if (name.Equals(arg, StringComparison.CurrentCultureIgnoreCase) ||
+                    att.Aliases.CommaSplit().Any(s => s.Equals(arg, StringComparison.CurrentCultureIgnoreCase)))
                 {
                     try
                     {

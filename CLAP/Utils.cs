@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-
 #if !FW2
 using System.Linq;
 #endif
@@ -17,66 +16,54 @@ namespace CLAP
 
         public static T GetAttribute<T>(this MethodInfo method) where T : Attribute
         {
-            var att = Attribute.GetCustomAttribute(method, typeof(T));
-
-            return (T)att;
+            return method.GetCustomAttribute<T>();
         }
 
         public static T GetAttribute<T>(this Type type) where T : Attribute
         {
-            var att = Attribute.GetCustomAttribute(type, typeof(T));
-
-            return (T)att;
+            return type.GetTypeInfo().GetCustomAttribute<T>();
         }
 
         public static T GetAttribute<T>(this ParameterInfo parameter) where T : Attribute
         {
-            var att = Attribute.GetCustomAttribute(parameter, typeof(T));
-
-            return (T)att;
+            return parameter.GetCustomAttribute<T>();
         }
 
         public static IEnumerable<T> GetAttributes<T>(this ParameterInfo parameter) where T : Attribute
         {
-            var atts = Attribute.GetCustomAttributes(parameter, typeof(T)).Cast<T>();
-
-            return atts;
+            return parameter.GetCustomAttributes<T>();
         }
 
         public static IEnumerable<T> GetAttributes<T>(this PropertyInfo property) where T : Attribute
         {
-            var atts = Attribute.GetCustomAttributes(property, typeof(T)).Cast<T>();
-
-            return atts;
+            return property.GetCustomAttributes<T>();
         }
 
         public static IEnumerable<T> GetInterfaceAttributes<T>(this MethodInfo method)
         {
             return method.GetCustomAttributes(true).
-                Where(a => a.GetType().GetInterfaces().Contains(typeof(T))).
+                Where(a => a.GetType().GetTypeInfo().GetInterfaces().Contains(typeof(T))).
                 Cast<T>();
         }
 
         public static IEnumerable<T> GetAttributes<T>(this Type type) where T : Attribute
         {
-            var atts = Attribute.GetCustomAttributes(type, typeof(T)).Cast<T>();
-
-            return atts;
+            return type.GetTypeInfo().GetCustomAttributes<T>();
         }
 
         public static bool HasAttribute<T>(this MethodInfo method) where T : Attribute
         {
-            return Attribute.IsDefined(method, typeof(T));
+            return method.IsDefined(typeof(T));
         }
 
         public static bool HasAttribute<T>(this Type type) where T : Attribute
         {
-            return Attribute.IsDefined(type, typeof(T));
+            return type.GetTypeInfo().IsDefined(typeof(T));
         }
 
         public static bool HasAttribute<T>(this ParameterInfo parameter) where T : Attribute
         {
-            return Attribute.IsDefined(parameter, typeof(T));
+            return parameter.IsDefined(typeof(T));
         }
 
         public static IEnumerable<MethodInfo> GetMethodsWith<T>(this Type type) where T : Attribute
@@ -89,7 +76,7 @@ namespace CLAP
 
         public static IEnumerable<MethodInfo> GetAllMethods(this Type type)
         {
-            var methods = type.GetMethods(
+            var methods = type.GetTypeInfo().GetMethods(
                 BindingFlags.Public |
                 BindingFlags.NonPublic |
                 BindingFlags.Instance |
@@ -148,7 +135,7 @@ namespace CLAP
 
         public static string GetGenericTypeName(this Type type)
         {
-            if (!type.IsGenericType)
+            if (!type.GetTypeInfo().IsGenericType)
             {
                 return type.Name;
             }
@@ -157,7 +144,7 @@ namespace CLAP
 
             genericTypeName = genericTypeName.Remove(genericTypeName.IndexOf('`'));
 
-            var genericArgs = type.GetGenericArguments().
+            var genericArgs = type.GetTypeInfo().GetGenericArguments().
                 Select(a => GetGenericTypeName(a)).
                 StringJoin(",");
 

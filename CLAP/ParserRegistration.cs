@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+#if !FW2
 using System.Linq;
+#endif
 using CLAP.Interception;
 using System.Reflection;
 
@@ -302,7 +304,7 @@ namespace CLAP
 
         private string GetTargetAliasAttributeValue(Type targetType)
         {
-            var aliasAttribute = targetType.GetCustomAttributes(typeof(TargetAliasAttribute), false).FirstOrDefault() as TargetAliasAttribute;
+            var aliasAttribute = targetType.GetTypeInfo().GetCustomAttributes(typeof(TargetAliasAttribute), false).FirstOrDefault() as TargetAliasAttribute;
             return (aliasAttribute != null) ? aliasAttribute.Alias : string.Empty;
         }
 

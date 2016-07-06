@@ -6,7 +6,6 @@ namespace CLAP.Validation
     /// More-Than validation:
     /// The numeric value of the marked parameter or property must be a more than the specified number
     /// </summary>
-    [Serializable]
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property)]
     public sealed class MoreThanAttribute : NumberValidationAttribute
     {

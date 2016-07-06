@@ -5,7 +5,6 @@ namespace CLAP
     /// <summary>
     /// A parameter
     /// </summary>
-    [Serializable]
     [AttributeUsage(AttributeTargets.Parameter)]
     [Obsolete("Use DefaultValueAttribute, DefaultProviderAttribute, RequiredAttribute, AliasesAttribute and DescriptionAttribute")]
     public sealed class ParameterAttribute : Attribute
@@ -48,7 +47,6 @@ namespace CLAP
     /// <summary>
     /// Sets a default value for a parameter
     /// </summary>
-    [Serializable]
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class DefaultValueAttribute : Attribute
     {
@@ -64,7 +62,6 @@ namespace CLAP
     /// Sets a default value provider type for a parameter.
     /// The type must derive from DefaultProvider
     /// </summary>
-    [Serializable]
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class DefaultProviderAttribute : Attribute
     {
@@ -79,7 +76,6 @@ namespace CLAP
     /// <summary>
     /// Marks a parameter to be required
     /// </summary>
-    [Serializable]
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class RequiredAttribute : Attribute
     {
@@ -88,7 +84,6 @@ namespace CLAP
     /// <summary>
     /// Sets additional names to a parameter
     /// </summary>
-    [Serializable]
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class AliasesAttribute : Attribute
     {
@@ -103,7 +98,6 @@ namespace CLAP
     /// <summary>
     /// Sets a description to a parameter
     /// </summary>
-    [Serializable]
     [AttributeUsage(AttributeTargets.Parameter)]
     public class DescriptionAttribute : Attribute
     {
@@ -118,7 +112,6 @@ namespace CLAP
     /// <summary>
     /// Sets an array parameter separator
     /// </summary>
-    [Serializable]
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class SeparatorAttribute : Attribute
     {

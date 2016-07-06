@@ -1,7 +1,9 @@
-﻿using System.Data;
-
+﻿using System;
 #if !FW2
 using System.Linq;
+#endif
+#if !NETCORE
+using System.Data;
 #endif
 
 namespace CLAP
@@ -29,6 +31,10 @@ namespace CLAP
 
         public void Validate(ValueInfo[] parameters)
         {
+#if NETCORE
+            // TODO
+            throw new NotImplementedException();
+#else
             var table = new DataTable();
 
             table.CaseSensitive = CaseSensitive;
@@ -58,6 +64,7 @@ namespace CLAP
                             p.Name,
                             p.Value.ToSafeString("<NULL>"))).StringJoin(", ")));
             }
+#endif
         }
     }
 }

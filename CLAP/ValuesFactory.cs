@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 using CLAP.Interception;
-
 #if !FW2
 using System.Linq;
 #endif
@@ -96,7 +95,7 @@ namespace CLAP
 
                     // Create a generic instance of the ConvertToArray method
                     //
-                    var convertToArrayMethod = typeof(ValuesFactory).GetMethod(
+                    var convertToArrayMethod = typeof(ValuesFactory).GetTypeInfo().GetMethod(
                             "ConvertToArray",
                             BindingFlags.NonPublic | BindingFlags.Static).
                         MakeGenericMethod(type);
@@ -121,9 +120,19 @@ namespace CLAP
             throw new MissingArgumentValueException(inputKey);
         }
 
+        private static Type GetNullableType(Type type)
+        {
+            // Use Nullable.GetUnderlyingType() to remove the Nullable<T> wrapper if type is already nullable.
+            type = Nullable.GetUnderlyingType(type);
+            if (type.GetTypeInfo().IsValueType)
+                return typeof(Nullable<>).MakeGenericType(type);
+            else
+                return type;
+        }
+
         private static object ConvertString(string value, Type type)
         {
-            if (type.IsEnum)
+            if (type.GetTypeInfo().IsEnum)
             {
                 return Enum.Parse(type, value);
             }
@@ -135,7 +144,7 @@ namespace CLAP
             {
                 return string.IsNullOrEmpty(value) ? (object)null : new Uri(Environment.ExpandEnvironmentVariables(value));
             }
-            else if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+            else if (type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
                 if (string.IsNullOrEmpty(value))
                 {
@@ -143,9 +152,9 @@ namespace CLAP
                 }
                 else
                 {
-                    var converter = new NullableConverter(type);
+                    var newType = GetNullableType(type);
 
-                    return Convert.ChangeType(value, converter.UnderlyingType);
+                    return Convert.ChangeType(value, newType);
                 }
             }
             else

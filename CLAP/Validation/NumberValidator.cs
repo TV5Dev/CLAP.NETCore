@@ -5,7 +5,6 @@ namespace CLAP.Validation
     /// <summary>
     /// Number validation
     /// </summary>
-    [Serializable]
     public abstract class NumberValidationAttribute : ValidationAttribute
     {
         protected double Number { get; private set; }

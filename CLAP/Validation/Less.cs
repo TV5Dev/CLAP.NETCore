@@ -6,7 +6,6 @@ namespace CLAP.Validation
     /// Less-Than validation:
     /// The numeric value of the marked parameter or property must be a less than the specified number
     /// </summary>
-    [Serializable]
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property)]
     public sealed class LessThanAttribute : NumberValidationAttribute
     {

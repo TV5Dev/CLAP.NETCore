@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+#if !NETCORE
 using System.Windows.Forms;
+#endif
 
 namespace CLAP
 {
@@ -22,6 +24,7 @@ namespace CLAP
             return parser;
         }
 
+#if !NETCORE
         internal static MultiParser WinForms(this MultiParser parser)
         {
             parser.Register.HelpHandler("help,h,?", help => MessageBox.Show(help));
@@ -30,5 +33,6 @@ namespace CLAP
 
             return parser;
         }
+#endif
     }
 }

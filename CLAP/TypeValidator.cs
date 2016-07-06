@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Diagnostics;
 using System.Reflection;
-
 #if !FW2
 using System.Linq;
 #endif
@@ -28,7 +27,7 @@ namespace CLAP
                 GetAttributes<CollectionValidationAttribute>().
                 Select(a => a.GetValidator());
 
-            var properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            var properties = type.GetTypeInfo().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
             var propsAndValues = properties.
                 Where(p => p.GetIndexParameters().None()).
@@ -42,8 +41,10 @@ namespace CLAP
 
             // no need to validate properties of GAC objects
             //
-            if (!type.Assembly.GlobalAssemblyCache &&
-                !type.IsArray)
+#if !NETCORE
+            if (!type.Assembly.GlobalAssemblyCache)
+#endif
+            if (!type.IsArray)
             {
                 // property validators:
                 // validate each property value, in case property is a custom class
@@ -75,7 +76,7 @@ namespace CLAP
 
                         foreach (var propertyValidator in propertyCollectionValidators)
                         {
-                            var propertyPropsAndValues = value.GetType().
+                            var propertyPropsAndValues = value.GetType().GetTypeInfo().
                                 GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).
                                 Where(p => p.GetIndexParameters().None()).
                                 Select(p => new ValueInfo(p.Name, p.PropertyType, p.GetValue(value, null))).
@@ -124,8 +125,10 @@ namespace CLAP
             var type = obj.GetType();
 
             if (type.IsArray ||
-                type.IsEnum ||
-                type.Assembly.GlobalAssemblyCache)
+#if !NETCORE
+                type.Assembly.GlobalAssemblyCache ||
+#endif
+                type.GetTypeInfo().IsEnum)
             {
                 return true;
             }

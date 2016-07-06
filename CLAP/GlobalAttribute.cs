@@ -7,7 +7,6 @@ namespace CLAP
     /// The method can either accept any single allowed parameter type or accept 
     /// no parameters and be treated as a boolean switch.
     /// </summary>
-    [Serializable]
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class GlobalAttribute : Attribute
     {

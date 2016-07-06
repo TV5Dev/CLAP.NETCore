@@ -5,7 +5,6 @@ namespace CLAP
     /// <summary>
     /// Marks a method as a verb
     /// </summary>
-    [Serializable]
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class VerbAttribute : Attribute
     {
@@ -25,7 +24,6 @@ namespace CLAP
         public bool IsDefault { get; set; }
     }
 
-    [Serializable]
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public sealed class TargetAliasAttribute : Attribute
     {

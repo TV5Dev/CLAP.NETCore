@@ -7,7 +7,6 @@ namespace CLAP
     /// <summary>
     /// Base exception class for all parser exceptions
     /// </summary>
-    [Serializable]
     public abstract class CommandLineParserException : Exception
     {
         /// <summary>
@@ -24,14 +23,8 @@ namespace CLAP
         /// Constructor
         /// </summary>
         public CommandLineParserException(string message, Exception inner) : base(message, inner) { }
-
-        protected CommandLineParserException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class MissingDefaultVerbException : CommandLineParserException
     {
         public MissingDefaultVerbException()
@@ -40,13 +33,8 @@ namespace CLAP
         }
         public MissingDefaultVerbException(string message) : base(message) { }
         public MissingDefaultVerbException(string message, Exception inner) : base(message, inner) { }
-        protected MissingDefaultVerbException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class VerbNotFoundException : CommandLineParserException
     {
         /// <summary>
@@ -61,13 +49,8 @@ namespace CLAP
         }
 
         public VerbNotFoundException(string message, Exception inner) : base(message, inner) { }
-        protected VerbNotFoundException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class MissingVerbException : CommandLineParserException
     {
         public MissingVerbException()
@@ -76,13 +59,8 @@ namespace CLAP
         }
 
         public MissingVerbException(string message, Exception inner) : base(message, inner) { }
-        protected MissingVerbException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class MultiParserMissingClassNameException : CommandLineParserException
     {
         public MultiParserMissingClassNameException()
@@ -91,13 +69,8 @@ namespace CLAP
         }
 
         public MultiParserMissingClassNameException(string message, Exception inner) : base(message, inner) { }
-        protected MultiParserMissingClassNameException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class InvalidVerbException : CommandLineParserException
     {
         public InvalidVerbException()
@@ -106,13 +79,8 @@ namespace CLAP
         }
 
         public InvalidVerbException(string message, Exception inner) : base(message, inner) { }
-        protected InvalidVerbException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class UnknownParserTypeException : CommandLineParserException
     {
         public UnknownParserTypeException(string typeName)
@@ -121,13 +89,8 @@ namespace CLAP
         }
 
         public UnknownParserTypeException(string message, Exception inner) : base(message, inner) { }
-        protected UnknownParserTypeException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class MissingRequiredArgumentException : CommandLineParserException
     {
         /// <summary>
@@ -148,13 +111,8 @@ namespace CLAP
         }
 
         public MissingRequiredArgumentException(string message, Exception inner) : base(message, inner) { }
-        protected MissingRequiredArgumentException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class MissingArgumentValueException : CommandLineParserException
     {
         /// <summary>
@@ -169,13 +127,8 @@ namespace CLAP
         }
 
         public MissingArgumentValueException(string message, Exception inner) : base(message, inner) { }
-        protected MissingArgumentValueException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class MissingArgumentPrefixException : CommandLineParserException
     {
         /// <summary>
@@ -190,24 +143,14 @@ namespace CLAP
         }
 
         public MissingArgumentPrefixException(string message, Exception inner) : base(message, inner) { }
-        protected MissingArgumentPrefixException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class ValidationException : CommandLineParserException
     {
         public ValidationException(string message) : base(message) { }
         public ValidationException(string message, Exception inner) : base(message, inner) { }
-        protected ValidationException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class TypeConvertionException : CommandLineParserException
     {
         /// <summary>
@@ -226,94 +169,54 @@ namespace CLAP
             Value = value;
             Type = type;
         }
-
-        protected TypeConvertionException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class MoreThanOneEmptyHandlerException : CommandLineParserException
     {
         public MoreThanOneEmptyHandlerException()
             : base("More than one empty handler was defined. Only a single method can be marked with [Empty] in a type and only a single action can be registered as an empty handler.")
         {
         }
-
-        protected MoreThanOneEmptyHandlerException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class MoreThanOneErrorHandlerException : CommandLineParserException
     {
         public MoreThanOneErrorHandlerException()
             : base("More than one error handler was defined. Only a single method can be marked with [Error] in a type and only a single action can be registered as an error handler.")
         {
         }
-
-        protected MoreThanOneErrorHandlerException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class MoreThanOnePreVerbInterceptorException : CommandLineParserException
     {
         public MoreThanOnePreVerbInterceptorException()
             : base("More than one pre-verb interceptor was defined. Only a single method can be marked with [PreVerbExecutionAttribute] in a type and only a single action can be registered as a pre-interceptor.")
         {
         }
-
-        protected MoreThanOnePreVerbInterceptorException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class MoreThanOnePostVerbInterceptorException : CommandLineParserException
     {
         public MoreThanOnePostVerbInterceptorException()
             : base("More than one post-verb interceptor was defined. Only a single method can be marked with [PostVerbExecutionAttribute] in a type and only a single action can be registered as a post-interceptor.")
         {
         }
-
-        protected MoreThanOnePostVerbInterceptorException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class ArgumentMismatchException : CommandLineParserException
     {
         public ArgumentMismatchException() { }
         public ArgumentMismatchException(string message) : base(message) { }
         public ArgumentMismatchException(string message, Exception inner) : base(message, inner) { }
-        protected ArgumentMismatchException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class ParserExecutionTargetException : CommandLineParserException
     {
         public ParserExecutionTargetException() { }
         public ParserExecutionTargetException(string message) : base(message) { }
         public ParserExecutionTargetException(string message, Exception inner) : base(message, inner) { }
-        protected ParserExecutionTargetException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class UnhandledParametersException : CommandLineParserException
     {
         /// <summary>
@@ -326,14 +229,8 @@ namespace CLAP
         {
             UnhandledParameters = unhandledParameters;
         }
-
-        protected UnhandledParametersException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class MoreThanOneDefaultVerbException : CommandLineParserException
     {
         /// <summary>
@@ -346,14 +243,8 @@ namespace CLAP
         {
             Verbs = verbs;
         }
-
-        protected MoreThanOneDefaultVerbException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class DuplicateTargetAliasException : CommandLineParserException
     {
         /// <summary>
@@ -366,14 +257,8 @@ namespace CLAP
         {
             DuplicateTargetAlias = duplicateTargetAlias;
         }
-
-        protected DuplicateTargetAliasException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class InvalidHelpHandlerException : CommandLineParserException
     {
         /// <summary>
@@ -391,14 +276,8 @@ namespace CLAP
         {
             Method = method;
         }
-
-        protected InvalidHelpHandlerException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class AmbiguousParameterDefaultException : CommandLineParserException
     {
         /// <summary>
@@ -411,14 +290,8 @@ namespace CLAP
         {
             Parameter = parameter;
         }
-
-        protected AmbiguousParameterDefaultException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class InvalidParameterDefaultProviderException : CommandLineParserException
     {
         /// <summary>
@@ -431,14 +304,8 @@ namespace CLAP
         {
             Parameter = parameter;
         }
-
-        protected InvalidParameterDefaultProviderException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class DuplicateGlobalHandlerException : CommandLineParserException
     {
         /// <summary>
@@ -451,14 +318,8 @@ namespace CLAP
         {
             Name = name;
         }
-
-        protected DuplicateGlobalHandlerException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class NonArrayParameterWithSeparatorException : CommandLineParserException
     {
         /// <summary>
@@ -474,14 +335,8 @@ namespace CLAP
         {
             Parameter = parameter;
         }
-
-        protected NonArrayParameterWithSeparatorException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 
-    [Serializable]
     public class InvalidSeparatorException : CommandLineParserException
     {
         /// <summary>
@@ -496,10 +351,5 @@ namespace CLAP
         {
             Parameter = parameter;
         }
-
-        protected InvalidSeparatorException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
     }
 }

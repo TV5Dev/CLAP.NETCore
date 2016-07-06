@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-
 #if !FW2
 using System.Linq;
 #endif
+using System.Reflection;
 
 namespace CLAP
 {
@@ -48,7 +48,7 @@ namespace CLAP
 
         protected MultiParser()
         {
-            m_types = GetType().GetGenericArguments();
+            m_types = GetType().GetTypeInfo().GetGenericArguments();
 
             Init();
         }
@@ -121,10 +121,9 @@ namespace CLAP
                 throw new UnknownParserTypeException(typeNameOrAlias);
             }
 
-return new ParserRunner(matchingType, registration, HelpGenerator);        }
-
+            return new ParserRunner(matchingType, registration, HelpGenerator);
+        }
         
-
         private ParserRunner GetSingleTypeParser(string[] args, ParserRegistration registration)
         {
             Debug.Assert(m_types.Length == 1);
@@ -157,7 +156,7 @@ return new ParserRunner(matchingType, registration, HelpGenerator);        }
 
                 var typeName = parts[0];
 
-                if (!type.Name.Equals(typeName, StringComparison.InvariantCultureIgnoreCase))
+                if (!type.Name.Equals(typeName, StringComparison.CurrentCultureIgnoreCase))
                 {
                     throw new UnknownParserTypeException(typeName);
                 }

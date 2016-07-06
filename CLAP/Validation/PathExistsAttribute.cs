@@ -7,7 +7,6 @@ namespace CLAP.Validation
     /// Path exists validation:
     /// The string value of the marked parameter or property must be a path to an existing file or directory
     /// </summary>
-    [Serializable]
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property)]
     public sealed class PathExistsAttribute : ValidationAttribute
     {

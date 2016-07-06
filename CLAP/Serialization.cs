@@ -37,6 +37,10 @@ namespace CLAP
 
         public static object DeserializeXml(string xml, Type type)
         {
+#if NETCORE
+            // TODO
+            throw new NotImplementedException();
+#else
             var serializer = new XmlSerializer(type);
 
             using (var reader = new StringReader(xml))
@@ -45,6 +49,7 @@ namespace CLAP
 
                 return obj;
             }
+#endif
         }
     }
 }

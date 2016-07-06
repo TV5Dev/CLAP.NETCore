@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+#if !FW2
 using System.Linq;
+#endif
 
 namespace CLAP
 {
