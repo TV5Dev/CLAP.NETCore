@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Serialization;
+#if !NETCORE
 using Newtonsoft.Json;
+#endif
 
 namespace CLAP
 {
@@ -32,7 +34,12 @@ namespace CLAP
 
         private static object DeserializeJson(string json, Type type)
         {
+#if NETCORE
+            // TODO
+            throw new NotImplementedException();
+#else
             return JsonConvert.DeserializeObject(json, type);
+#endif
         }
 
         public static object DeserializeXml(string xml, Type type)

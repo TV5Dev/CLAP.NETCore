@@ -6,6 +6,9 @@ using CLAP.Interception;
 #if !FW2
 using System.Linq;
 #endif
+#if !NETCORE
+using System.Runtime.Serialization;
+#endif
 
 namespace CLAP
 {
